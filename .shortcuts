@@ -1,0 +1,10 @@
+#!/bin/bash
+
+
+phpstorm() {
+	/home/kyeates/bin/PhpStorm-143.1184.87/bin/phpstorm.sh 2>&1 /dev/null &
+}
+
+mongotron() {
+	/home/kyeates/bin/Mongotron-linux-x64/Mongotron
+}

@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# Bash wrappers for docker run commands.
+# Inspiered by https://github.com/jfrazelle/dotfiles/blob/master/.dockerfunc
+
+
+######
+# Helper Functions
+######
+dcleanup(){
+	docker rm -v $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
+	docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
+}
+del_stopped(){
+	local name=$1
+	local state=$(docker inspect --format "{{.State.Running}}" $name 2>/dev/null)
+
+	if [[ "$state" == "false" ]]; then
+		docker rm $name
+	fi
+}
+relies_on(){
+	local containers=$@
+
+	for container in $containers; do
+		local state=$(docker inspect --format "{{.State.Running}}" $container 2>/dev/null)
+
+		if [[ "$state" == "false" ]] || [[ "$state" == "" ]]; then
+			echo "$container is not running, starting it for you."
+			$container
+		fi
+	done
+}
+
+
+#########
+# Commands
+########
+docker-phpstorm() {
+	docker run -d \
+		-v /etc/localtime:/etc/localtime:ro \
+		-v /tmp/.X11-unix:/tmp/.X11-unix \
+		-e DISPLAY=unix$DISPLAY \
+		--name phpstorm \
+		kyeates/phpstorm
+}
+
+add-proxy(){
+	docker run -d \
+		-p 80:80 \
+		-p 443:443 \ 
+		-v /home/kyeates/projects/work/docker-proxy-config/proxy-nginx.conf:/etc/nginx/conf.d/my_proxy.conf:ro \
+		-v /home/kyeates/projects/work/docker-proxy-config/certs:/etc/nginx/certs \
+		-v /var/run/docker.sock:/tmp/docker.sock:ro \
+		--name proxy \
+		jwilder/nginx-proxy
+}
+
+proxy() {
+	docker start proxy
+}
