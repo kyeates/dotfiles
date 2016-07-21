@@ -1,0 +1,7 @@
+Host cronalytics.github.com
+  HostName github.com
+  IdentityFile ~/.ssh/id_rsa_cron
+
+HOST cronalytics.bitbucket.org
+ HostName bitbucket.org
+ IdentityFile ~/.ssh/id_rsa_cron
