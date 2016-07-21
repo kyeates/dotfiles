@@ -1,5 +1,5 @@
 #!/bin/bash
-. ./dotfiles/config
+. ~/dotfiles/config
 
 load_dot_files() {
 	shopt -s nullglob
