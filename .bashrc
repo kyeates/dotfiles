@@ -2,11 +2,13 @@
 . ./dotfiles/config
 
 load_dot_files() {
+	shopt -s nullglob
 	for file in $DOT_FILES_DIR/$1/.*
 	do
 		[[ $file =~ (\.|\.\.)$ ]] && continue 
 	 	. "$file"	
 	done 
+	shopt -u nullglob
 }
 
 if [[ $ENV_NAME == $XPS ]]; then
