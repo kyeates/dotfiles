@@ -1,0 +1,13 @@
+#!/bin/bash
+
+readonly DOT_FILES_DIR=`pwd`
+
+# Name of the env for future use
+readonly XPS="xps13"
+readonly ENV_NAME=$XPS
+
+# laptop Windows git bash
+
+# laptop linux
+
+# desktop linux

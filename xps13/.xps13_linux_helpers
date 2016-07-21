@@ -1,4 +1,7 @@
-#!/bin/bash
+
+mousespeed() {
+	xinput --set-prop 10 265 $@
+}
 
 
 phpstorm() {
@@ -9,15 +12,3 @@ mongotron() {
 	/home/kyeates/bin/Mongotron-linux-x64/Mongotron
 }
 
-
-canteen() {
-	cd $WORK_DIR/canteen/canteen-canteen.org.au
-}
-
-kss() {
-	cd $WORK_DIR/kss
-}
-
-work() {
-	cd $WORK_DIR
-}
